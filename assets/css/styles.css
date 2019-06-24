@@ -1,0 +1,27 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+h2 {
+    flex: none;
+}
+
+.gameContainer {
+    flex: 1;
+}
+
+footer {
+    flex: none;
+}
