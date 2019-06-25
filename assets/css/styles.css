@@ -33,6 +33,7 @@ h2 {
     font-size: 1.25rem;
     flex: none;
     font-weight: bold;
+    padding: 0 0 .5rem 0;
 }
 
 .center {
@@ -49,9 +50,15 @@ h2 {
     width: 80%;
 }
 
+#showTime {
+    text-align: center;
+    padding-bottom: .5rem;
+    font-size: 1.25rem;
+}
+
 .questionContainer {
     display: flex;
-    line-height: 1.5rem;
+    line-height: 2rem;
     justify-content: center;
 }
 
@@ -63,8 +70,12 @@ h2 {
 #possibleAnswers {
     display: flex;
     flex-direction: column;
-    margin: .5rem 2rem;
+    margin: 0 2rem .5rem 2rem;
     font-size: 1.25rem;
+}
+
+.answer input {
+    margin-right: .75rem
 }
 
 footer {

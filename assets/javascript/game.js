@@ -33,7 +33,7 @@ class TriviaQuestionImage {
 let possibleQuestions = [
     new TriviaQuestion('Which of the following is an American hardwood?', null, 'Cherry', ['Bubinga', 'Ipe', 'Rosewood']),
     new TriviaQuestion('When milling rough lumber which power tool would you use to create a flat face?', null, 'Jointer', ['Planer', 'Table Saw', 'Drum Sander']),
-    new TriviaQuestion('In dovetail joinery the board pictured below would be called the ______.', new TriviaQuestionImage('../images/tailBoard.jpeg', 'Dovetail tail board'), 'Tail board', ['Pin board', 'Dove board', 'Angled board']),
+    new TriviaQuestion('In dovetail joinery the board pictured below would be called the ______.', new TriviaQuestionImage('assets/images/tailBoard.jpg', 'Dovetail tail board'), 'Tail board', ['Pin board', 'Dove board', 'Angled board']),
     new TriviaQuestion('Cedar is considered a softwood.', null, 'True', ['False'])
 ];
 
@@ -44,7 +44,7 @@ function pickRandomQuestion(arr) {
         usedQuestions.push(randomQuestionIndex);
         return arr[randomQuestionIndex];
     } else if (usedQuestions.length === arr.length) {
-        restartGame();
+        gameOver();
     } else if (usedQuestions.includes(randomQuestionIndex)) {
         return pickRandomQuestion(arr);
     }
@@ -75,7 +75,7 @@ function displayAnswers(arr, parent) {
 
 
 function evaluateUserAnswer(event) {
-    console.log(event)
+    console.log(event);
     let clickedIndex = event.srcElement.parentElement.firstChild.value;
     if (currentRandomizedAnswers[clickedIndex] === currentQuestion.correctAnswer) {
         numberCorrect++;
@@ -99,8 +99,15 @@ function evaluateUserAnswer(event) {
     }
 }
 
-function restartGame() {
-    console.log('restart game');
+function gameOver() {
+    document.getElementById('questionText').innerHTML = `<h2 class="center">Game Over</h2><p>Questions Correct: ${numberCorrect}</p><p>Questions Incorrect: ${numberWrong}</p>`
+    document.getElementById('questionImageHolder').innerHTML = '';
+    let restartButton = document.createElement('button');
+    restartButton.onclick(restartGame);
+}
+
+function restartGame(event) {
+    console.log(event);
     numberCorrect = 0;
     numberWrong = 0;
     questionsRemaining = possibleQuestions.length;
@@ -146,17 +153,27 @@ let currentRandomizedAnswers;
 function newQuestionToHtml() {
     currentQuestion = pickRandomQuestion(possibleQuestions);
     currentRandomizedAnswers = currentQuestion.randomizeAnswers();
+
     document.getElementById('questionText').innerHTML = '';
     document.getElementById('questionImageHolder').innerHTML = '';
+
+    if (currentQuestion.questionImage !== null) {
+        document.getElementById('questionImageHolder').innerHTML = `<img src="${currentQuestion.questionImage.src}" />`;
+        timeAllowed = 15;
+    }
+
     let timeRemaining = document.createElement('p');
     timeRemaining.setAttribute('id', 'showTime');
     timeRemaining.innerText = 'Time Remaining: ' + timeAllowed;
+
     let questionTitle = document.createElement('h2');
     questionTitle.innerText = currentQuestion.question;
+
     let questionText = document.getElementById('questionText');
     questionText.append(timeRemaining);
     questionText.append(questionTitle);
     displayAnswers(currentRandomizedAnswers, questionText);
+
     timeToAnswer();
 }
 
