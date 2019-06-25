@@ -5,17 +5,20 @@ class TriviaQuestion {
         this.correctAnswer = correctAnswer;
         this.incorrectAnswers = incorrectAnswers;
     }
-    getQuestions() {
-        let possibleAnswers = this.incorrectAnswers.push(this.correctAnswer);
+    getPossibleAnswers() {
+        let possibleAnswers = this.incorrectAnswers.concat(this.correctAnswer);
+        return possibleAnswers;
     }
 
-    randomizeAnswers(arr) {
+    randomizeAnswers() {
+        let arr = this.getPossibleAnswers();
         let randomizedAnswers = [];
-        while (arr !== []) {
-            let randomIndex = Math.trunc(Math.random() * (arr.length - 1))
+        while (arr.length > 0) {
+            let randomIndex = Math.trunc(Math.random() * arr.length);
             randomizedAnswers.push(arr[randomIndex]);
-            possibleAnswers.splice(randomIndex, 1);
+            arr.splice(randomIndex, 1);
         }
+        return randomizedAnswers;
     }
 }
 
@@ -34,16 +37,63 @@ let possibleQuestions = [
     new TriviaQuestion('Cedar is considered a softwood.', null, 'True', ['False'])
 ];
 
-
-function newQuestionToHtml(triviaQuestion) {
-    let question = document.getElementById('questionTitle');
-    question.innerText();
-    let possibleAnswers = document.getElementById('possibleAnswers');
-
-    for () {
-        let answer = document.createElement('li');
-        answer.innerText();
-        document.appendChild(possibleAnswers);
+function pickRandomQuestion(arr) {
+    let usedQuestions = [];
+    let randomQuestionIndex = Math.trunc(Math.random() * arr.length);
+    if (!usedQuestions.includes(randomQuestionIndex) && usedQuestions.length !== arr.length) {
+        usedQuestions.push(randomQuestionIndex);
+        return arr[randomQuestionIndex];
+    } else if (usedQuestions.length === arr.length) {
+        usedQuestions = [];
+        return pickRandomQuestion(arr);
+    } else if (usedQuestions.includes(randomQuestionIndex)) {
+        return pickRandomQuestion(arr);
     }
 }
+
+function displayAnswers(arr) {
+    let possibleAnswersDisplay = document.getElementById('possibleAnswers');
+    possibleAnswersDisplay.innerHTML = '';
+    for (let i = 0; i < arr.length; i++) {
+        let answerHolder = document.createElement('div');
+        answerHolder.setAttribute('class', 'answer');
+        answerHolder.onclick = evaluateUserAnswer;
+        let answerRadio = document.createElement('input');
+        answerRadio.setAttribute('type', 'radio');
+        answerRadio.setAttribute('name', 'answerChoice');
+        answerRadio.setAttribute('id', i.toString());
+        answerRadio.setAttribute('value', i.toString());
+        let answerLabel = document.createElement('label');
+        answerLabel.setAttribute('for', arr[i]);
+        answerLabel.innerText = arr[i];
+        answerHolder.append(answerRadio);
+        answerHolder.append(answerLabel);
+        possibleAnswersDisplay.append(answerHolder);
+    }
+}
+
+
+function evaluateUserAnswer(event) {
+    let clickedIndex = event.srcElement.value;
+    if (currentRandomizedAnswers[clickedIndex] === currentQuestion.correctAnswer) {
+        alert('you win!');
+        newQuestionToHtml();
+    } else {
+        alert('you lose');
+        newQuestionToHtml();
+    }
+}
+
+let currentQuestion = pickRandomQuestion(possibleQuestions);
+let currentRandomizedAnswers = currentQuestion.randomizeAnswers();
+
+function newQuestionToHtml() {
+    let questionDisplay = document.getElementById('questionTitle');
+    questionDisplay.innerText = currentQuestion.question;
+    displayAnswers(currentRandomizedAnswers);
+}
+
+newQuestionToHtml();
+
+
 

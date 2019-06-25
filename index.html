@@ -4,22 +4,37 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="assets/css/reset.css">
         <link rel="stylesheet" href="assets/css/styles.css">
         <title>Woodworking Trivia</title>
     </head>
     <body>
-    <h1>Woodworking Trivia</h1>
     <div class="gameContainer">
+        <h1>Woodworking Trivia</h1>
         <div class="questionContainer">
-            <h2 id="questionTitle">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h2>
+            <div class="questionText">
+                <h2 id="questionTitle">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h2>
+                <div id="possibleAnswers">
+                    <div class="answer">
+                        <input type="radio" id="A" name="test" value="A">
+                        <label for="A">Test A</label>
+                    </div>
+                    <div class="answer">
+                        <input type="radio" id="B" name="test" value="A">
+                        <label for="B">Test B</label>
+                    </div>
+                    <div class="answer">
+                        <input type="radio" id="C" name="test" value="A">
+                        <label for="C">Test C</label>
+                    </div>
+                    <div class="answer">
+                        <input type="radio" id="D" name="test" value="A">
+                        <label for="D">Test D</label>
+                    </div>
+                </div>
+            </div>
             <div id="questionImageHolder"><img src="assets/images/tailBoard.jpg" alt="tail board" /></div>
-            <ul id="possibleAnswers">
-                <li>text</li>
-                <li>text</li>
-                <li>text</li>
-                <li>text</li>
-            </ul>
         </div>
     </div>
     <footer>
