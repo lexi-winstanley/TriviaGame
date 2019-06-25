@@ -37,22 +37,22 @@ let possibleQuestions = [
     new TriviaQuestion('Cedar is considered a softwood.', null, 'True', ['False'])
 ];
 
+let usedQuestions = [];
 function pickRandomQuestion(arr) {
-    let usedQuestions = [];
     let randomQuestionIndex = Math.trunc(Math.random() * arr.length);
     if (!usedQuestions.includes(randomQuestionIndex) && usedQuestions.length !== arr.length) {
         usedQuestions.push(randomQuestionIndex);
         return arr[randomQuestionIndex];
     } else if (usedQuestions.length === arr.length) {
-        usedQuestions = [];
-        return pickRandomQuestion(arr);
+        restartGame();
     } else if (usedQuestions.includes(randomQuestionIndex)) {
         return pickRandomQuestion(arr);
     }
 }
 
-function displayAnswers(arr) {
-    let possibleAnswersDisplay = document.getElementById('possibleAnswers');
+function displayAnswers(arr, parent) {
+    let possibleAnswersDisplay = document.createElement('div');
+    possibleAnswersDisplay.setAttribute('id', 'possibleAnswers');
     possibleAnswersDisplay.innerHTML = '';
     for (let i = 0; i < arr.length; i++) {
         let answerHolder = document.createElement('div');
@@ -70,27 +70,94 @@ function displayAnswers(arr) {
         answerHolder.append(answerLabel);
         possibleAnswersDisplay.append(answerHolder);
     }
+    parent.append(possibleAnswersDisplay);
 }
 
 
 function evaluateUserAnswer(event) {
-    let clickedIndex = event.srcElement.value;
+    console.log(event)
+    let clickedIndex = event.srcElement.parentElement.firstChild.value;
     if (currentRandomizedAnswers[clickedIndex] === currentQuestion.correctAnswer) {
-        alert('you win!');
-        newQuestionToHtml();
+        numberCorrect++;
+        questionsRemaining--;
+        document.getElementById('questionText').innerHTML = `<h2 class="center">Correct Answer!</h2><p>Questions Remaining: ${questionsRemaining}</p>`;
+        document.getElementById('questionImageHolder').innerHTML = '';
+
+        clearInterval(timeInterval);
+        timeAllowed = 10;
+        setTimeout(newQuestionToHtml, 2000);
     } else {
-        alert('you lose');
-        newQuestionToHtml();
+        numberWrong++;
+        questionsRemaining--;
+        document.getElementById('questionText').innerHTML = `<h2 class="center">Incorrect. <br> The correct answer was: ${currentQuestion.correctAnswer} </h2><p>Questions Remaining: ${questionsRemaining}</p>`
+
+        document.getElementById('questionImageHolder').innerHTML = '';
+
+        clearInterval(timeInterval);
+        timeAllowed = 10;
+        setTimeout(newQuestionToHtml, 2000);
     }
 }
 
-let currentQuestion = pickRandomQuestion(possibleQuestions);
-let currentRandomizedAnswers = currentQuestion.randomizeAnswers();
+function restartGame() {
+    console.log('restart game');
+    numberCorrect = 0;
+    numberWrong = 0;
+    questionsRemaining = possibleQuestions.length;
+}
+
+function timeToAnswer() {
+    timeInterval = setInterval(decrement, 1000);
+    countdownStarted = true;
+}
+
+function decrement() {
+    timeAllowed--;
+    document.getElementById('showTime').innerText = 'Time Remaining: ' + timeAllowed;
+    if (timeAllowed === 0) {
+        timeUp();
+    }
+}
+
+function timeUp() {
+    clearInterval(timeInterval);
+    timeAllowed = 10;
+    countdownStarted = false;
+    numberWrong++;
+    questionsRemaining--;
+    document.getElementById('questionText').innerHTML = `<h2 class="center">Time's Up. <br> The correct answer was: ${currentQuestion.correctAnswer} </h2><p>Questions Remaining: ${questionsRemaining}</p>`
+
+    document.getElementById('questionImageHolder').innerHTML = '';
+    setTimeout(newQuestionToHtml, 2000);
+}
+
+
+let countdownStarted = false;
+let timeInterval;
+let timeAllowed = 10;
+let numberCorrect = 0;
+let numberWrong = 0;
+let questionsRemaining = possibleQuestions.length;
+
+
+let currentQuestion;
+let currentRandomizedAnswers;
 
 function newQuestionToHtml() {
-    let questionDisplay = document.getElementById('questionTitle');
-    questionDisplay.innerText = currentQuestion.question;
-    displayAnswers(currentRandomizedAnswers);
+    currentQuestion = pickRandomQuestion(possibleQuestions);
+    currentRandomizedAnswers = currentQuestion.randomizeAnswers();
+    document.getElementById('questionText').innerHTML = '';
+    document.getElementById('questionImageHolder').innerHTML = '';
+    let timeRemaining = document.createElement('p');
+    timeRemaining.setAttribute('id', 'showTime');
+    timeRemaining.innerText = 'Time Remaining: ' + timeAllowed;
+    let questionTitle = document.createElement('h2');
+    questionTitle.innerText = currentQuestion.question;
+    let questionText = document.getElementById('questionText');
+    questionText.append(timeRemaining);
+    questionText.append(questionTitle);
+    displayAnswers(currentRandomizedAnswers, questionText);
+    timeToAnswer();
 }
 
 newQuestionToHtml();

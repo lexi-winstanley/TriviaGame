@@ -35,6 +35,10 @@ h2 {
     font-weight: bold;
 }
 
+.center {
+    text-align: center;
+}
+
 .gameContainer {
     text-align: center;
     background-color: rgba(43,41,38,.85);
@@ -42,14 +46,16 @@ h2 {
     margin: 2rem auto;
     padding: 2rem;
     border-radius: 3rem;
+    width: 80%;
 }
 
 .questionContainer {
     display: flex;
     line-height: 1.5rem;
+    justify-content: center;
 }
 
-.questionText {
+#questionText {
     padding: 0 2rem 0 0;
     text-align: left;
 }
