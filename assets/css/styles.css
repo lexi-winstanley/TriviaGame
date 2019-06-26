@@ -83,7 +83,7 @@ h2 {
 #possibleAnswers {
     display: flex;
     flex-direction: column;
-    margin: 0 2rem .5rem 2rem;
+    margin: 0 0rem .5rem 2rem;
     font-size: 1.25rem;
 }
 
@@ -101,7 +101,7 @@ footer {
     color: #eeece6;
     font-weight: bold;
     line-height: 1.5rem;
-    padding: 0 2rem 2rem 2rem;
+    padding: 0 2rem .5rem 2rem;
 }
 
 button {
@@ -120,4 +120,47 @@ button {
 
 .noDisplay {
     display: none;
+}
+
+@media (max-width: 750px) {
+    #questionContainer {
+        line-height: 1.5rem;
+    }
+    #questionText {
+        min-width: 50%;
+    }
+    #questionImageHolder img {
+        padding: 0 0 0 1rem;
+    }
+}
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+    h2 {
+        font-size: 1.15rem;
+    }
+    #showTime {
+        font-size: 1.15rem;
+    }
+    #possibleAnswers {
+        font-size: 1.15rem;
+    }
+    #questionContainer {
+        line-height: 1.5rem;
+        flex-direction: column;
+    }
+    #questionText {
+        min-width: 70%;
+        max-width: 100%;
+    }
+    #questionImageHolder img {
+        padding: 1rem 0 0 0rem;
+        max-width: 100%;
+        max-height: 300px;
+    }
+    button {
+        font-size: 1.15rem;
+    }
 }
