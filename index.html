@@ -10,13 +10,19 @@
         <title>Woodworking Trivia</title>
     </head>
     <body>
-    <div class="gameContainer">
+    <div id="gameContainer">
         <h1>Woodworking Trivia</h1>
-        <div class="questionContainer">
+        <div id="questionContainer">
             <div id="questionText">
+                <p>This trivia game is all about woodworking! Once you click the button below and the game begins a question will appear
+                    on screen and you will be given a certain amount of time in which to answer. After you answer or time runs out, the
+                    correct answer will be shown and a new question will load. Your timer will reset each time a new
+                    question appears. Once you have gone through all the questions a screen will display the total you got correct/incorrect.</p>
+                <button id="start">Start Game</button>
             </div>
-            <div id="questionImageHolder"><img src="assets/images/tailBoard.jpg" alt="tail board" /></div>
+            <div id="questionImageHolder"></div>
         </div>
+        <p id="showTime"></p>
     </div>
     <footer>
         <p class="footerText">Created by Lexi Winstanley</p>

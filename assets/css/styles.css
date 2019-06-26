@@ -25,8 +25,10 @@ body {
 h1 {
     text-align: center;
     width: 100%;
-    padding: 0 0 2rem 0;
+    margin: 0 0 2rem 0;
+    padding: 0 0 .75rem 0;
     font-size: 2rem;
+    border-bottom: solid #eeece6 .1rem;
 }
 
 h2 {
@@ -40,7 +42,8 @@ h2 {
     text-align: center;
 }
 
-.gameContainer {
+#gameContainer {
+    flex: 1;
     text-align: center;
     background-color: rgba(43,41,38,.85);
     color: #eeece6;
@@ -52,19 +55,29 @@ h2 {
 
 #showTime {
     text-align: center;
-    padding-bottom: .5rem;
+    padding-top: 2rem;
     font-size: 1.25rem;
+    width: 100%;
 }
 
-.questionContainer {
+#questionContainer {
     display: flex;
     line-height: 2rem;
     justify-content: center;
 }
 
 #questionText {
-    padding: 0 2rem 0 0;
     text-align: left;
+    display: flex;
+    flex-direction: column;
+    max-width: 70%;
+    min-width: 40%;
+}
+
+#questionImageHolder img {
+    padding: 0 0 0 2rem;
+    max-width: 100%;
+    max-height: 400px;
 }
 
 #possibleAnswers {
@@ -72,6 +85,10 @@ h2 {
     flex-direction: column;
     margin: 0 2rem .5rem 2rem;
     font-size: 1.25rem;
+}
+
+.answer {
+    cursor: pointer;
 }
 
 .answer input {
@@ -85,4 +102,22 @@ footer {
     font-weight: bold;
     line-height: 1.5rem;
     padding: 0 2rem 2rem 2rem;
+}
+
+button {
+    margin: 1.25rem auto 0 auto;
+    background-color: #eeece6;
+    border: none;
+    padding: .5rem;
+    font-size: 1.25rem;
+    text-transform: uppercase;
+    border-radius: .75rem;
+    font-weight: bold;
+    color: rgba(43,41,38,1);
+    font-family: 'Quicksand', sans-serif;
+    cursor: pointer;
+}
+
+.noDisplay {
+    display: none;
 }
