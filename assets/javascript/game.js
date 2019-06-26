@@ -149,7 +149,7 @@ function timeUp() {
     countdownStarted = false;
     numberWrong++;
     questionsRemaining--;
-    document.getElementById('questionText').innerHTML = `<h2 class="center">Time's Up. <br> The correct answer was: ${currentQuestion.correctAnswer} </h2><p>Questions Remaining: ${questionsRemaining}</p>`
+    document.getElementById('questionText').innerHTML = `<h2 class="center">Time's Up. <br> The correct answer was: ${currentQuestion.correctAnswer} </h2><p class="center">Questions Remaining: ${questionsRemaining}</p>`
 
     document.getElementById('questionImageHolder').innerHTML = '';
     setTimeout(newQuestionToHtml, 2000);
