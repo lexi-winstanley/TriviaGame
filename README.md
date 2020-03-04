@@ -11,7 +11,7 @@ This trivia game is about woodworking. On page load an instruction screen is dis
 Timeout functions and intervals are used to display the questions and a countdown of time to answer. Once the user answers a page is shown that reveals the correct answer. After a set amount of time the next question is shown and a new countdown begins. Once all the questions have been answered a summary screen is shown and the game is over. 
 
 ## Role
-Sole developer responsible for design, code and creation of custom graphics. Functionality requirements provided by UW Coding Bootcamp/Trilogy Education Services.
+Sole developer responsible for design, code and creation of custom graphics. 
 
 ## Technologies
 HTML
