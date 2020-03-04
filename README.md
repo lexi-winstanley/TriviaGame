@@ -1,5 +1,5 @@
 # Woodworking Trivia
-[View Live](https://lexi-winstanley.github.io/WoodworkingTrivia/)
+[View Live](https://lexi-winstanley.github.io/woodworkingTrivia/)
 
 ## Motivation 
 To create a JavaScript trivia game that displays timed questions for a user to answer, keeps track of number correct/incorrect and displays that information once all questions have been answered. 
